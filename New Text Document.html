@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MP3 Player</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+
+    #audioControls {
+      width: 300px;
+      margin: 20px auto;
+    }
+
+    button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>MP3 Player</h1>
+  <audio id="audioControls" controls>
+    <source src="" type="audio/mp3" id="audioSource">
+    Your browser does not support the audio element.
+  </audio>
+  <div>
+    <input type="file" id="fileInput" accept=".mp3">
+    <button onclick="loadAudio()">Load Audio</button>
+    <button onclick="playAudio()">Play</button>
+    <button onclick="pauseAudio()">Pause</button>
+    <button onclick="stopAudio()">Stop</button>
+    <button onclick="repeatAudio()">Repeat</button>
+  </div>
+
+  <script>
+    const audio = document.getElementById('audioControls');
+    const audioSource = document.getElementById('audioSource');
+    const fileInput = document.getElementById('fileInput');
+    let isRepeated = false;
+
+    function loadAudio() {
+      const file = fileInput.files[0];
+      if (file) {
+        const objectURL = URL.createObjectURL(file);
+        audioSource.src = objectURL;
+        audio.load();
+      }
+    }
+
+    function playAudio() {
+      audio.play();
+    }
+
+    function pauseAudio() {
+      audio.pause();
+    }
+
+    function stopAudio() {
+      audio.pause();
+      audio.currentTime = 0;
+    }
+
+    function repeatAudio() {
+      isRepeated = !isRepeated;
+
+      if (isRepeated) {
+        audio.loop = true;
+      } else {
+        audio.loop = false;
+      }
+    }
+  </script>
+</body>
+</html>
